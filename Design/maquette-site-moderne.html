@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquette Site Moderne</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Work+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --noir: #0f0f0f;
+            --accent: #00d9ff;
+            --beige: #f5f1e8;
+            --gris: #7a7a7a;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--beige);
+            color: var(--noir);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(245,241,232,1), rgba(245,241,232,0));
+        }
+
+        .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: -1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--noir);
+            font-size: 0.95rem;
+            font-weight: 400;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 4rem;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            letter-spacing: -2px;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gris);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--noir);
+            color: var(--beige);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            color: var(--noir);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,217,255,0.3);
+        }
+
+        /* Cercle décoratif animé */
+        .circle-deco {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            top: 20%;
+            right: 10%;
+            opacity: 0.3;
+            animation: rotate 30s linear infinite;
+        }
+
+        .circle-deco::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Section Services */
+        .services {
+            padding: 8rem 4rem;
+            background: var(--noir);
+            color: var(--beige);
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 5rem;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            padding: 3rem;
+            border: 1px solid rgba(245,241,232,0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,217,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .service-card:hover::before {
+            left: 100%;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-10px);
+        }
+
+        .service-number {
+            font-size: 3rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .service-card p {
+            color: var(--gris);
+            line-height: 1.8;
+        }
+
+        /* Section Portfolio */
+        .portfolio {
+            padding: 8rem 4rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+        }
+
+        .portfolio-item:nth-child(1) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .portfolio-item:nth-child(2) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .portfolio-item:nth-child(3) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .portfolio-item:nth-child(4) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-overlay h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--noir);
+            color: var(--beige);
+            padding: 6rem 4rem 3rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            color: var(--gris);
+            line-height: 1.8;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--gris);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(245,241,232,0.2);
+            color: var(--gris);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1.5rem 2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                padding: 0 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .services, .portfolio {
+                padding: 4rem 2rem;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">STUDIO.</div>
+        <ul class="nav-links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="accueil">
+        <div class="circle-deco"></div>
+        <div class="hero-content">
+            <h1>Design qui<br>inspire l'avenir</h1>
+            <p>Nous créons des expériences digitales exceptionnelles qui transforment votre vision en réalité. Chaque projet est une œuvre d'art unique.</p>
+            <a href="#contact" class="cta-button">DÉCOUVRIR NOTRE TRAVAIL</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <h2 class="section-title">Nos Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-number">01</div>
+                <h3>Design Web</h3>
+                <p>Création d'interfaces utilisateur modernes et intuitives qui captivent votre audience et renforcent votre identité de marque.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">02</div>
+                <h3>Développement</h3>
+                <p>Solutions techniques sur mesure avec les dernières technologies pour garantir performance et évolutivité.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">03</div>
+                <h3>Branding</h3>
+                <p>Construction d'identités visuelles fortes et cohérentes qui distinguent votre marque de la concurrence.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-number">04</div>
+                <h3>Marketing Digital</h3>
+                <p>Stratégies digitales innovantes pour maximiser votre présence en ligne et atteindre vos objectifs business.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <h2 class="section-title">Projets Récents</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>E-Commerce Luxe</h3>
+                    <p>Design & Développement</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Application Mobile</h3>
+                    <p>UX/UI Design</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Site Corporate</h3>
+                    <p>Branding & Web</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-overlay">
+                    <h3>Plateforme SaaS</h3>
+                    <p>Design System</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">STUDIO.</div>
+                <p class="footer-desc">Agence créative spécialisée dans le design et le développement web. Nous transformons vos idées en expériences digitales exceptionnelles.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">Design Web</a></li>
+                    <li><a href="#">Développement</a></li>
+                    <li><a href="#">Branding</a></li>
+                    <li><a href="#">Marketing</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:hello@studio.com">hello@studio.com</a></li>
+                    <li><a href="tel:+33123456789">+33 1 23 45 67 89</a></li>
+                    <li><a href="#">Paris, France</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 STUDIO. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>
